@@ -7,25 +7,7 @@ Faith Kulzer
 library('readr')
 library('data.table')
 library('tidyverse')
-```
-
-    ## -- Attaching packages ------------------------------------------- tidyverse 1.3.0 --
-
-    ## v ggplot2 3.3.2     v dplyr   1.0.2
-    ## v tibble  3.0.3     v stringr 1.4.0
-    ## v tidyr   1.1.2     v forcats 0.5.0
-    ## v purrr   0.3.4
-
-    ## -- Conflicts ---------------------------------------------- tidyverse_conflicts() --
-    ## x dplyr::between()   masks data.table::between()
-    ## x dplyr::filter()    masks stats::filter()
-    ## x dplyr::first()     masks data.table::first()
-    ## x dplyr::lag()       masks stats::lag()
-    ## x dplyr::last()      masks data.table::last()
-    ## x purrr::transpose() masks data.table::transpose()
-
-``` r
-bridges <- fread("2019HwyBridgesDelimitedAllStates.txt")
+bridges <- fread("https://www.fhwa.dot.gov/bridge/nbi/2019/delimited/WI19.txt")
 
 
 ##filter out useful columns, rename
@@ -36,33 +18,30 @@ bridges_filtered <- bridges %>%
 head(bridges_filtered)
 ```
 
-    ##          bridge_id fip_code deck_cond super_cond sub_cond year  adt latitude
-    ## 1: 00000000000S702       53         8          8        7 1999   50 31061094
-    ## 2: 00000000000S703       53         8          8        7 2002  159 31062020
-    ## 3: 0000000000M0022      113         5          5        6 1942  375 32174330
-    ## 4: 000000883039900       59         7          7        7 1974  430 34270600
-    ## 5: 000001014002450       79         5          6        5 1937 5520 34481800
-    ## 6: 000001331700710       33         5          5        5 1924 3620 34480000
+    ##          bridge_id fip_code deck_cond super_cond sub_cond year adt latitude
+    ## 1: 00000000000F303       51         4          5        5 1932  50 45585400
+    ## 2: 00000000000F304       51         5          5        4 1974  20 46011583
+    ## 3: 00000000000F310      115         5          5        7 1948 100 44542955
+    ## 4: 00000000000F311      115         5          7        8 1979 150 44563600
+    ## 5: 00000000000F315        3         5          5        7 1977 300 46360600
+    ## 6: 00000000000F317        3         7          8        7 1980  20 46371020
     ##    longitude
-    ## 1:  87341348
-    ## 2:  87340890
-    ## 3:  84583799
-    ## 4:  87581200
-    ## 5:  87225400
-    ## 6:  87373000
+    ## 1:  89560600
+    ## 2:  89454321
+    ## 3:  88544561
+    ## 4:  88554200
+    ## 5:  90390000
+    ## 6:  90421190
 
 ``` r
-ggplot(bridges_filtered, aes(x=longitude, y=adt)) +
+ggplot(bridges_filtered, aes(x=latitude, y=adt)) +
   geom_point(size=0.4) +
-  xlab("Longitude") +
-  ylab("Average Daily Travel") +
-  geom_vline(xintercept = 93265000, color="red")
+  xlab("Latitude") +
+  ylab("Average Daily Travel") 
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 This graph shows the average daily travel for each bridge by the
-longitude coordinate of the bridge. Shown for context is the longitude
-of Minneapolis, Minnesota, indicated by the red vertical line. At this
-longitude I would guess that many bridges are made crossing the
-Mississippi River.
+latitude coordinate of the bridge. The visible ‘groups’ of the longitude
+may be due to a precision that is too low.
