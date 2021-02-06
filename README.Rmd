@@ -11,6 +11,8 @@ library('data.table')
 library('tidyverse')
 bridges <- fread("https://www.fhwa.dot.gov/bridge/nbi/2019/delimited/WI19.txt")
 
+##link to my github: https://github.com/fkulzer/Bridges-homework
+
 
 ##filter out useful columns, rename
 bridges_filtered <- bridges %>%
